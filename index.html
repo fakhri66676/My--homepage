@@ -2,103 +2,62 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Homepage Fakhri</title>
+  <title>Fapstrout Terminal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 20px;
-      background-color: #0d1117;
-      color: #00ff88;
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #000000;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
       min-height: 100vh;
-      text-align: center;
+      text-align: left;
     }
 
-    img {
-      max-width: 200px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 20px #00ff88aa;
-    }
-
-    .cyberpunk-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3em;
-      color: #0ff;
-      text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #00ffaa;
-      margin-bottom: 15px;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
-      50% { text-shadow: 0 0 10px #0ff, 0 0 20px #00ffaa; }
-      100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 10px;
-      color: #00ff88;
-    }
-
-    p.subtitle {
+    .terminal-line {
       font-size: 1.2em;
-      margin-bottom: 20px;
-      color: #ffffffcc;
+      white-space: pre-wrap;
+      margin-bottom: 10px;
     }
 
-    #quote {
-      background-color: #161b22;
-      border-left: 4px solid #00ff88;
-      padding: 15px 20px;
-      font-style: italic;
-      font-size: 1.1em;
-      margin-bottom: 30px;
-      max-width: 600px;
-      box-shadow: 0 0 10px #00ff8877;
-      color: #ffffff;
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ff00;
+      animation: blink 1s step-start infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
 
     .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
+      margin-top: 30px;
     }
 
     .links a {
-      background-color: #21262d;
-      padding: 12px 24px;
-      border-radius: 8px;
-      color: #00ff88;
+      display: block;
+      margin: 5px 0;
+      color: #00ff00;
       text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
-      box-shadow: 0 0 8px #00ff8844;
     }
 
     .links a:hover {
-      background-color: #2c313a;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="GIF Kucing Lucu">
 
-  <div class="cyberpunk-text">Halo tuan Fakhri, selamat datang kembali</div>
-
-  <h1>Halo, Fakhri!</h1>
-  <p class="subtitle">Selamat datang di homepage gaya Discord-mu.</p>
-
-  <div id="quote">Mengambil quote harian...</div>
-
-  <div class="links">
+  <div class="terminal-line" id="terminal-output"></div>
+  <div class="terminal-line links" id="links" style="display:none;">
+    > Akses cepat:  
     <a href="https://www.google.com" target="_blank">Google</a>
     <a href="https://www.instagram.com" target="_blank">Instagram</a>
     <a href="https://www.tiktok.com" target="_blank">TikTok</a>
@@ -107,17 +66,40 @@
   </div>
 
   <script>
-    const quotes = [
-      "Hidup adalah belajar, bukan berlomba.",
-      "Satu langkah kecil hari ini lebih baik daripada tidak sama sekali.",
-      "Waktu terbaik untuk memulai adalah sekarang.",
-      "Jangan takut gagal, takutlah untuk tidak mencoba.",
-      "Fokus pada kemajuan, bukan kesempurnaan."
+    const terminal = document.getElementById('terminal-output');
+    const links = document.getElementById('links');
+    const lines = [
+      "Memulai koneksi ke sistem...",
+      "Autentikasi berhasil...",
+      "Selamat datang kembali, Tuan Fakhri.",
+      "Nama pengguna: Fapstrout",
+      "Menampilkan sistem utama..."
     ];
 
-    const quoteElement = document.getElementById("quote");
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    quoteElement.textContent = quotes[randomIndex];
+    let i = 0;
+
+    function typeLine() {
+      if (i < lines.length) {
+        let line = lines[i];
+        let j = 0;
+        const span = document.createElement('span');
+        terminal.appendChild(span);
+        const interval = setInterval(() => {
+          span.textContent += line[j];
+          j++;
+          if (j >= line.length) {
+            clearInterval(interval);
+            terminal.appendChild(document.createElement('br'));
+            i++;
+            setTimeout(typeLine, 400);
+          }
+        }, 30);
+      } else {
+        document.getElementById("links").style.display = "block";
+      }
+    }
+
+    typeLine();
   </script>
 </body>
 </html>
