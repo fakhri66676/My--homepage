@@ -20,6 +20,13 @@
       animation: fadeIn 1s ease-in;
     }
 
+    video {
+      max-width: 90%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
     h1 {
       font-size: 3em;
       margin-bottom: 10px;
@@ -59,6 +66,12 @@
   </style>
 </head>
 <body>
+  <!-- Tambahkan video di sini -->
+  <video autoplay muted loop>
+    <source src="video.mp4" type="video/mp4">
+    Browser Anda tidak mendukung tag video.
+  </video>
+
   <h1>Helloww Fakhri 💫</h1>
   <p>Selamat datang di Chrome 🌐</p>
   <div class="links">
@@ -69,3 +82,8 @@
   </div>
 </body>
 </html>
+
+Catatan:
+Ganti video.mp4 dengan nama file video kamu. Pastikan file videonya berada di folder yang sama dengan file HTML, atau sesuaikan path-nya.
+autoplay muted loop artinya video akan mulai otomatis, tanpa suara, dan berulang terus-menerus.
+Kalau kamu butuh video sebagai background halaman juga bisa, tinggal bilang saja!
